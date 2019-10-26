@@ -1,0 +1,11 @@
+.toonPic {
+    width: 300px;
+    height: 300px;
+  }
+
+  body {
+    background: url(../images/draculaThrone.jpg);
+    background-size: 100% 100vh;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
