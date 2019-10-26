@@ -9,3 +9,7 @@
     background-repeat: no-repeat;
     z-index: 1;
 }
+
+button {
+    visibility: hidden;
+}
