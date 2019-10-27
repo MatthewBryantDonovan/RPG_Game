@@ -1,6 +1,33 @@
 .toonPic {
-    width: 300px;
-    height: 300px;
+  width: 24vw;
+  height: 12vw;
+  margin: 0.5vw none;
+  font-size: 1.5vw;
+  color: lime;
+  -webkit-text-stroke-width: 1px; 
+  -webkit-text-stroke-color: maroon;
+  border: 2px solid blue;
+  }
+
+  h1 {
+    font-size:3vh;
+    color: blanchedalmond;
+    -webkit-text-stroke-width: .2vh; 
+    -webkit-text-stroke-color: red;
+  }
+
+  .title {
+    color: lime;
+    -webkit-text-stroke-width: 0.2vh; 
+    -webkit-text-stroke-color: maroon;
+    font-size:5vh;
+  }
+
+  span {
+    font-size:2vh;
+    color: red;
+    -webkit-text-stroke-width: .5px; 
+    -webkit-text-stroke-color: blanchedalmond;
   }
 
   body {
@@ -12,4 +39,25 @@
 
 button {
     visibility: hidden;
+}
+
+@media (min-width: 1100px) { 
+  .toonPic {
+    height: 140px;
+    width: 1px;
+    border: 2px solid blue;
+    }  
+}
+
+@media (max-width: 500px) { 
+  
+  .toonPic {
+    height: 16vw;
+    font-size: 1.8vw;
+    -webkit-text-stroke-width: .5px; 
+    }  
+
+    .title {
+      font-size:3vh;
+    }
 }

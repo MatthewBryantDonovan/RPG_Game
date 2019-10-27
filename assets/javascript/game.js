@@ -20,7 +20,7 @@ var rpg = {
     gameStart: function () {
         for (let i = 0; i < rpg.toon.name.length; i++) {
             var toonDiv = $("<div>");
-            toonDiv.addClass("float-left border border-primary");
+            toonDiv.addClass("toonPic col-sm-2");
             toonDiv.attr({
                 "onclick": "rpg.toonSelect()",
                 "id": rpg.toon.name[i]
@@ -28,8 +28,8 @@ var rpg = {
             toonDiv.css("background", "url(./assets/images/" + rpg.toon.toonPic[i] + ")")
             toonDiv.css({
                 "background": "url(./assets/images/" + rpg.toon.toonPic[i] + ")",
-                "width": "200px",
-                "height": "150px",
+/*                 "width": "200px",
+                "height": "150px", */
                 "background-repeat": "no-repeat",
                 "background-size": "100%"
             });
