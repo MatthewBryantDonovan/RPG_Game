@@ -33,7 +33,7 @@ var rpg = {
                 "background-repeat": "no-repeat",
                 "background-size": "100%"
             });
-            toonDiv.text(rpg.toon.name[i] + "  HP: " + rpg.toon.hp[i]);
+            toonDiv.text(rpg.toon.name[i] + " HP: " + rpg.toon.hp[i]);
             $("#toon-area").append(toonDiv);
         }
     },

@@ -4,7 +4,7 @@
   margin: 0.5vw none;
   font-size: 1.5vw;
   color: lime;
-  -webkit-text-stroke-width: 1px; 
+  -webkit-text-stroke-width: .05vw; 
   -webkit-text-stroke-color: maroon;
   border: 2px solid blue;
   }
@@ -49,14 +49,11 @@ button {
     }  
 }
 
-@media (max-width: 500px) { 
+@media (max-width: 900px) { 
   
-  .toonPic {
-    height: 16vw;
-    font-size: 1.8vw;
-    -webkit-text-stroke-width: .5px; 
-    }  
-
+    .toonPic {
+      font-size: 2.5vw;
+    }
     .title {
       font-size:3vh;
     }
