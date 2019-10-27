@@ -1,9 +1,9 @@
 var rpg = {
     toon: {
         name: ["Charlotte", "Shanoa", "Alucard", "Jonathan"],
-        atk: [6, 6, 6, 6],
-        hp: [120, 180, 240, 300],
-        parry: [20, 20, 20, 20],
+        atk: [32, 24, 18, 12],
+        hp: [150, 180, 270, 330],
+        parry: [45, 50, 15, 5],
         toonPic: ["charlotte.png", "shanoa.png", "alucard.png", "jonathan.png"],
         selectedToons: [],
         heroPos: 0,
@@ -97,12 +97,15 @@ var rpg = {
                 //name can tell me their orginal postion
                 rpg.toon.placeHolderPos.push(enemyPos);
                 this.onDeath();
+                rpg.toon.atk[heroPos] += 6;
         } else {
             //defender parry damage
             rpg.toon.hp[heroPos] -= rpg.toon.parry[enemyPos];
             $("#" + rpg.toon.name[heroPos]).text(rpg.toon.name[heroPos] + "  HP: " + rpg.toon.hp[heroPos]);
             //see if hero died
             if (rpg.toon.hp[heroPos] <= 0) {
+                rpg.toon.hp[heroPos] = 0;
+                $("#" + rpg.toon.name[heroPos]).text(rpg.toon.name[heroPos] + "  HP: " + rpg.toon.hp[heroPos]);
                 $("button").css("visibility", "hidden")
                 $(".hero-log").text("You have been defeated!");
                 $(".enemy-log").text("You Lose! Click the title to play again!");
@@ -165,18 +168,24 @@ var rpg = {
         console.log(rpg.toon.placeHolderPos);
         console.log(rpg.toon.placeHolder);
 
+        rpg.toon.atk = [32, 24, 18, 12];
+        rpg.toon.hp = [150, 180, 270, 330];
+        rpg.toon.parry = [45, 50, 15, 5];
+
         var postPlace = 0;
         for (var i = 0; i < rpg.toon.name.length; i++) {
             postPlace = rpg.toon.placeHolderPos.indexOf(i);
             rpg.toon.placeHolder[postPlace].appendTo('#toon-area');
             /* $("#" + rpg.toon.name[i]).appendTo('#toon-area'); */
             $("#" + rpg.toon.name[i]).attr("onclick", "rpg.toonSelect()");
-            rpg.toon.hp[i] = 120 + (i * 60);
+/*             rpg.toon.hp[i] = 120 + (i * 60);
             rpg.toon.atk[i] = 6;
-            rpg.toon.parry[i] = 20;
+            rpg.toon.parry[i] = 20; */
             $("#" + rpg.toon.name[i]).text(rpg.toon.name[i] + "  HP: " + rpg.toon.hp[i]);
             console.log(postPlace);
         }
+
+        
         rpg.toon.selectedToons = [];
         rpg.toon.heroPos = 0;
         heroOriginalPos = 0;
