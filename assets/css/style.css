@@ -4,57 +4,58 @@
   margin: 0.5vw none;
   font-size: 1.5vw;
   color: lime;
-  -webkit-text-stroke-width: .05vw; 
+  -webkit-text-stroke-width: .05vw;
   -webkit-text-stroke-color: maroon;
   border: 2px solid blue;
-  }
+}
 
-  h1 {
-    font-size:3vh;
-    color: blanchedalmond;
-    -webkit-text-stroke-width: .2vh; 
-    -webkit-text-stroke-color: red;
-  }
+h1 {
+  font-size: 3vh;
+  color: blanchedalmond;
+  -webkit-text-stroke-width: .2vh;
+  -webkit-text-stroke-color: red;
+}
 
-  .title {
-    color: lime;
-    -webkit-text-stroke-width: 0.2vh; 
-    -webkit-text-stroke-color: maroon;
-    font-size:5vh;
-  }
+.title {
+  color: lime;
+  -webkit-text-stroke-width: 0.2vh;
+  -webkit-text-stroke-color: maroon;
+  font-size: 5vh;
+}
 
-  span {
-    font-size:2vh;
-    color: red;
-    -webkit-text-stroke-width: .5px; 
-    -webkit-text-stroke-color: blanchedalmond;
-  }
+span {
+  font-size: 2vh;
+  color: red;
+  -webkit-text-stroke-width: .5px;
+  -webkit-text-stroke-color: blanchedalmond;
+}
 
-  body {
-    background: url(../images/draculaThrone.jpg);
-    background-size: 100% 100vh;
-    background-repeat: no-repeat;
-    z-index: 1;
+body {
+  background: url(../images/draculaThrone.jpg);
+  background-size: 100% 100vh;
+  background-repeat: no-repeat;
+  z-index: 1;
 }
 
 button {
-    visibility: hidden;
+  visibility: hidden;
 }
 
-@media (min-width: 1100px) { 
+@media (min-width: 1100px) {
   .toonPic {
     height: 140px;
     width: 1px;
     border: 2px solid blue;
-    }  
+  }
 }
 
-@media (max-width: 900px) { 
-  
-    .toonPic {
-      font-size: 2.5vw;
-    }
-    .title {
-      font-size:3vh;
-    }
+@media (max-width: 900px) {
+
+  .toonPic {
+    font-size: 2.5vw;
+  }
+
+  .title {
+    font-size: 3vh;
+  }
 }
