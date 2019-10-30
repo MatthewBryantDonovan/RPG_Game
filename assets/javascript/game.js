@@ -7,6 +7,7 @@ var rpg = {
         hp: [200, 190, 270, 200],
         hpDefault: [],
         parry: [60, 25, 40, 20],
+        toonSong: [],
         toonPic: ["charlotte.png", "shanoa.png", "alucard.png", "jonathan.png"],
         special: ["Piercing Beam", "Arma Custos", "Soul Steal", "Stonewall"],
         specialTT: ["Deals 100 damage", "For the next 3 times you take damage - gain 12 attack", "Deal 50 damage and gain 25 health", "The next 3 hits taken deal 1/5 of the damage."],
@@ -26,7 +27,11 @@ var rpg = {
         placeHolder: [],
         placeHolderPos: [],
         enemyExists: false,
+        drac: document.createElement("audio"),
+        what: document.createElement("audio"),
+        hasPlayed: false,
     },
+
 
     // Start the game by population all the characters dynamically
     //TODO: Make the players and info look better
@@ -53,6 +58,23 @@ var rpg = {
             rpg.toon.hpDefault.push(rpg.toon.hp[i]);
         }
 
+/*         var audioElement = document.createElement("audio");
+        var audioElement = document.createElement("audio"); */
+        rpg.toon.drac.setAttribute("src", "./assets/audio/drac.mp3");
+        rpg.toon.what.setAttribute("src", "./assets/audio/what.mp3");
+        $(".toonPic").on("click", function () {
+            rpg.toon.drac.volume = 0.2;
+            rpg.toon.drac.play();
+        });
+        $(".toonPic").on("click", function () {
+            if ( rpg.toon.hasPlayed == false ) {
+            rpg.toon.what.volume = 0.5;
+            rpg.toon.what.play();
+            rpg.toon.hasPlayed = true;
+        }
+        });
+
+        //data-song: "rpg.toon.toonSong[i]"
     },
 
     // Removes unclicked-toons and makes them enemies!!! oooooohhhh scary!
@@ -69,6 +91,7 @@ var rpg = {
                 $("#" + rpg.toon.name[i]).prop("onclick", null);
             }
         }
+
 
     },
 
@@ -103,7 +126,7 @@ var rpg = {
             $("#special").removeAttr("disabled", ""); // make disabled $("#special").removeAttr("disabled") to enable
             $("#tooltip").text(rpg.toon.specialTT[heroPos]);
         }
-        
+
 
         // Attacker does damage
         var attackHappened = false;
@@ -162,7 +185,7 @@ var rpg = {
             $("#tooltip").css("visibility", "hidden");
             $(".hero-log").text(rpg.toon.name[enemyPos] + " took " + rpg.toon.atk[heroPos] + " damage and is now defeated!");
             $(".enemy-log").text("Please select another enemy to fight!");
-            
+
             if (rpg.toon.selectedToons.length == rpg.toon.name.length) {
                 $(".enemy-log").text("You Win! Click the title to play again! ");
                 rpg.gameEnd();
@@ -181,18 +204,18 @@ var rpg = {
                 rpg.toon.hp[heroPos] -= (rpg.toon.parry[enemyPos] / 5);
                 $(".hero-log").text(rpg.toon.name[heroPos] + " took " + (rpg.toon.parry[enemyPos] / 5) + " damage and now has " + rpg.toon.hp[heroPos] + "HP!");
             } else {
-            rpg.toon.hp[heroPos] -= rpg.toon.parry[enemyPos];
-            $(".hero-log").text(rpg.toon.name[heroPos] + " took " + rpg.toon.parry[enemyPos] + " damage and now has " + rpg.toon.hp[heroPos] + "HP!");
+                rpg.toon.hp[heroPos] -= rpg.toon.parry[enemyPos];
+                $(".hero-log").text(rpg.toon.name[heroPos] + " took " + rpg.toon.parry[enemyPos] + " damage and now has " + rpg.toon.hp[heroPos] + "HP!");
             }
             $("#" + rpg.toon.name[heroPos]).text(rpg.toon.name[heroPos] + "  HP: " + rpg.toon.hp[heroPos]);
 
             if (rpg.toon.currentSpecialAvailable == false && heroPos == 1 && rpg.toon.currentSpecialCoolDown < 4) {
                 rpg.toon.atk[heroPos] += 12;
-                if( attackHappened == true) {
+                if (attackHappened == true) {
                     rpg.toon.atk[heroPos] += 6;
                 }
             } else {
-            rpg.toon.atk[heroPos] += 6;
+                rpg.toon.atk[heroPos] += 6;
             }
             attackHappened = false;
 
@@ -212,8 +235,9 @@ var rpg = {
                 // Display damage delt/taken and make atk go up
             } else {
 
-/*                 $(".hero-log").text(rpg.toon.name[heroPos] + " took " + rpg.toon.parry[enemyPos] + " damage and now has " + rpg.toon.hp[heroPos] + "HP!");
- */                /*                 $(".enemy-log").text(rpg.toon.name[enemyPos] + " took " + rpg.toon.atk[heroPos] + " damage and now has " + rpg.toon.hp[enemyPos] + "HP!");
+                /*                 $(".hero-log").text(rpg.toon.name[heroPos] + " took " + rpg.toon.parry[enemyPos] + " damage and now has " + rpg.toon.hp[heroPos] + "HP!");
+                 */
+                /*                 $(".enemy-log").text(rpg.toon.name[enemyPos] + " took " + rpg.toon.atk[heroPos] + " damage and now has " + rpg.toon.hp[enemyPos] + "HP!");
                  */
             }
         }
@@ -237,7 +261,7 @@ var rpg = {
 
     // Bring values back to their original states and reset the toons in order.
     gameRestart() {
-                
+
         // Detach hero
         /* $("#" + rpg.toon.name[heroPos]).detach(); */
         rpg.toon.placeHolder.push($("#" + rpg.toon.name[heroPos]).detach());
@@ -267,7 +291,7 @@ var rpg = {
 
         rpg.toon.atk = [];
         rpg.toon.hp = [];
-        
+
 
         // Re-attach the toons so it looks like gamestart positions
         var postPlace = 0;
@@ -279,8 +303,8 @@ var rpg = {
             /*             rpg.toon.hp[i] = 120 + (i * 60);
                         rpg.toon.atk[i] = 6;
                         rpg.toon.parry[i] = 20; */
-                        rpg.toon.atk.push(rpg.toon.atkDefault[i]);
-                        rpg.toon.hp.push(rpg.toon.hpDefault[i]);
+            rpg.toon.atk.push(rpg.toon.atkDefault[i]);
+            rpg.toon.hp.push(rpg.toon.hpDefault[i]);
             $("#" + rpg.toon.name[i]).text(rpg.toon.name[i] + "  HP: " + rpg.toon.hp[i]);
         }
 
@@ -296,6 +320,7 @@ var rpg = {
         rpg.toon.currentSpecial = 0;
         rpg.toon.currentSpecialAvailable = true;
         rpg.toon.currentSpecialActive = false;
+        rpg.toon.hasPlayed = false;
 
         $(".hero-log").empty();
         $(".enemy-log").empty();
