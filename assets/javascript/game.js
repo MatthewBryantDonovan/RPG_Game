@@ -320,7 +320,6 @@ var rpg = {
         rpg.toon.currentSpecial = 0;
         rpg.toon.currentSpecialAvailable = true;
         rpg.toon.currentSpecialActive = false;
-        rpg.toon.hasPlayed = false;
 
         $(".hero-log").empty();
         $(".enemy-log").empty();
