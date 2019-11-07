@@ -85,7 +85,7 @@ var rpg = {
         for (var i = 0; i < rpg.toon.name.length; i++) {
             if (i != heroPos) {
                 $("#" + rpg.toon.name[i]).attr("onclick", "rpg.enemySelect()");
-                var moveToon = $("#" + rpg.toon.name[i]).detach(); //detatch is better for memeory
+                var moveToon = $("#" + rpg.toon.name[i]).detach(); //detach is better for memory
                 moveToon.appendTo('#enemy-area');
             } else {
                 $("#" + rpg.toon.name[i]).prop("onclick", null);
@@ -115,7 +115,7 @@ var rpg = {
 
     },
 
-    // After Attack button is clicked hero deals dmg to enemy and then recieves dammage w/ parry value
+    // After Attack button is clicked hero deals dmg to enemy and then receives damage w/ parry value
     // Attack will go up per swing & parry will not
     onAttack: function () {
         enemyPos = rpg.toon.selectedToons[rpg.toon.selectedToons.length - 1];
@@ -192,7 +192,7 @@ var rpg = {
             }
 
             rpg.toon.placeHolder.push($("#" + rpg.toon.name[enemyPos]).detach());
-            /// / Name can tell me their orginal postion
+            /// / Name can tell me their original position
             rpg.toon.placeHolderPos.push(enemyPos);
             this.onDeath();
             rpg.toon.atk[heroPos] += 6;
@@ -232,7 +232,7 @@ var rpg = {
                 rpg.gameEnd();
                 rpg.toon.enemyExists = true;
 
-                // Display damage delt/taken and make atk go up
+                // Display damage dealt / taken and make atk go up
             } else {
 
                 /*                 $(".hero-log").text(rpg.toon.name[heroPos] + " took " + rpg.toon.parry[enemyPos] + " damage and now has " + rpg.toon.hp[heroPos] + "HP!");
@@ -276,7 +276,7 @@ var rpg = {
 
 
         //TODO: placeHolderPos sometimes has more than 4 pieces of data... find out why...
-        // If its not included in array then add it to placholder.
+        // If its not included in array then add it to placeholder.
         for (var i = 0; i < rpg.toon.name.length; i++) {
             if (rpg.toon.selectedToons.indexOf(i) != true) {
                 rpg.toon.placeHolder.push($("#" + rpg.toon.name[i]).detach());
