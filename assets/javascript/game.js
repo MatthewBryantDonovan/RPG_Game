@@ -85,7 +85,7 @@ var rpg = {
         for (var i = 0; i < rpg.toon.name.length; i++) {
             if (i != heroPos) {
                 $("#" + rpg.toon.name[i]).attr("onclick", "rpg.enemySelect()");
-                var moveToon = $("#" + rpg.toon.name[i]).detach(); //detach is better for memory
+                var moveToon = $("#" + rpg.toon.name[i]).remove(); //remove is better for memory
                 moveToon.appendTo('#enemy-area');
             } else {
                 $("#" + rpg.toon.name[i]).prop("onclick", null);
@@ -98,7 +98,7 @@ var rpg = {
     // Removes selected enemy and throws it in the battle arena! dun-DUHN-DUHNN!
     enemySelect: function () {
         rpg.toon.selectedToons.push(rpg.toon.name.indexOf(event.target.id));
-        var moveToon = $("#" + rpg.toon.name[rpg.toon.name.indexOf(event.target.id)]).detach();
+        var moveToon = $("#" + rpg.toon.name[rpg.toon.name.indexOf(event.target.id)]).remove();
         moveToon.appendTo('#battle-area');
 
         for (let i = 0; i < rpg.toon.name.length; i++) {
@@ -191,7 +191,7 @@ var rpg = {
                 rpg.gameEnd();
             }
 
-            rpg.toon.placeHolder.push($("#" + rpg.toon.name[enemyPos]).detach());
+            rpg.toon.placeHolder.push($("#" + rpg.toon.name[enemyPos]).remove());
             /// / Name can tell me their original position
             rpg.toon.placeHolderPos.push(enemyPos);
             this.onDeath();
@@ -262,15 +262,15 @@ var rpg = {
     // Bring values back to their original states and reset the toons in order.
     gameRestart() {
 
-        // Detach hero
-        /* $("#" + rpg.toon.name[heroPos]).detach(); */
-        rpg.toon.placeHolder.push($("#" + rpg.toon.name[heroPos]).detach());
+        // remove hero
+        /* $("#" + rpg.toon.name[heroPos]).remove(); */
+        rpg.toon.placeHolder.push($("#" + rpg.toon.name[heroPos]).remove());
         rpg.toon.placeHolderPos.push(heroOriginalPos);
 
         if (rpg.toon.enemyExists == true) {
-            // If enemy exists detach them too (the one from the battle arena if user lost)
-            /* $("#" + rpg.toon.name[enemyPos]).detach(); */
-            rpg.toon.placeHolder.push($("#" + rpg.toon.name[enemyPos]).detach());
+            // If enemy exists remove them too (the one from the battle arena if user lost)
+            /* $("#" + rpg.toon.name[enemyPos]).remove(); */
+            rpg.toon.placeHolder.push($("#" + rpg.toon.name[enemyPos]).remove());
             rpg.toon.placeHolderPos.push(enemyPos);
         }
 
@@ -279,7 +279,7 @@ var rpg = {
         // If its not included in array then add it to placeholder.
         for (var i = 0; i < rpg.toon.name.length; i++) {
             if (rpg.toon.selectedToons.indexOf(i) != true) {
-                rpg.toon.placeHolder.push($("#" + rpg.toon.name[i]).detach());
+                rpg.toon.placeHolder.push($("#" + rpg.toon.name[i]).remove());
                 rpg.toon.placeHolderPos.push(i);
             }
 
@@ -330,6 +330,7 @@ var rpg = {
 };
 
 //gameflow start
+
 rpg.gameStart();
 
 
