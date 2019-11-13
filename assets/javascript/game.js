@@ -88,7 +88,7 @@ var rpg = {
                 var moveToon = $("#" + rpg.toon.name[i]).remove(); //remove is better for memory
                 moveToon.appendTo('#enemy-area');
             } else {
-                $("#" + rpg.toon.name[i]).prop("onclick", null);
+                $("#" + rpg.toon.name[i]).attr("onclick", null);
             }
         }
 
@@ -102,7 +102,7 @@ var rpg = {
         moveToon.appendTo('#battle-area');
 
         for (let i = 0; i < rpg.toon.name.length; i++) {
-            $("#" + rpg.toon.name[i]).prop("onclick", null);
+            $("#" + rpg.toon.name[i]).attr("onclick", null);
         }
 
         $("button").css("visibility", "visible")
@@ -124,7 +124,7 @@ var rpg = {
             rpg.toon.currentSpecialAvailable = true;
             $("#special").removeClass("disabled"); // make disabled $("#special").removeAttr("disabled") to enable
             $("#special").removeAttr("disabled", ""); // make disabled $("#special").removeAttr("disabled") to enable
-            $("#tooltip").text(rpg.toon.specialTT[heroPos]);
+            $("#tooltip").text(rpg.toon.specialTT[heroPos] + "hey there");
         }
 
 
