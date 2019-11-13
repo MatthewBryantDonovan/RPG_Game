@@ -58,8 +58,8 @@ var rpg = {
             rpg.toon.hpDefault.push(rpg.toon.hp[i]);
         }
 
-/*         var audioElement = document.createElement("audio");
-        var audioElement = document.createElement("audio"); */
+        /*         var audioElement = document.createElement("audio");
+                var audioElement = document.createElement("audio"); */
         rpg.toon.drac.setAttribute("src", "./assets/audio/drac.mp3");
         rpg.toon.what.setAttribute("src", "./assets/audio/what.mp3");
         $(".toonPic").on("click", function () {
@@ -67,11 +67,11 @@ var rpg = {
             rpg.toon.drac.play();
         });
         $(".toonPic").on("click", function () {
-            if ( rpg.toon.hasPlayed == false ) {
-            rpg.toon.what.volume = 0.5;
-            rpg.toon.what.play();
-            rpg.toon.hasPlayed = true;
-        }
+            if (rpg.toon.hasPlayed == false) {
+                rpg.toon.what.volume = 0.5;
+                rpg.toon.what.play();
+                rpg.toon.hasPlayed = true;
+            }
         });
 
         //data-song: "rpg.toon.toonSong[i]"
@@ -108,8 +108,12 @@ var rpg = {
         $("button").css("visibility", "visible")
         $("#special").text(rpg.toon.special[heroPos]);
         $("#special").attr("data-special", rpg.toon.special[heroPos]);
-        $("#tooltip").text(rpg.toon.specialTT[heroPos]);
-        $("#tooltip").css("visibility", "visible")
+        if (rpg.toon.currentSpecialCoolDown == 0) {
+            $("#tooltip").text("(Ready) " + rpg.toon.specialTT[heroPos]);
+
+        } else {
+            $("#tooltip").text("(Ready in " + (rpg.toon.currentSpecialCoolDownRates[heroPos] - rpg.toon.currentSpecialCoolDown + 1) + " turns) " + rpg.toon.specialTT[heroPos]);
+        }        $("#tooltip").css("visibility", "visible")
         currentSpecial = rpg.toon.special[heroPos];
         $("button").attr("onclick", "rpg.onAttack()");
 
@@ -124,8 +128,12 @@ var rpg = {
             rpg.toon.currentSpecialAvailable = true;
             $("#special").removeClass("disabled"); // make disabled $("#special").removeAttr("disabled") to enable
             $("#special").removeAttr("disabled", ""); // make disabled $("#special").removeAttr("disabled") to enable
-            $("#tooltip").text(rpg.toon.specialTT[heroPos] + "hey there");
-        }
+            if (rpg.toon.currentSpecialCoolDown == 0) {
+                $("#tooltip").text("(Ready) " + rpg.toon.specialTT[heroPos]);
+
+            } else {
+                $("#tooltip").text("(Ready in " + (rpg.toon.currentSpecialCoolDownRates[heroPos] - rpg.toon.currentSpecialCoolDown + 1) + " turns) " + rpg.toon.specialTT[heroPos]);
+            }        }
 
 
         // Attacker does damage
@@ -177,6 +185,12 @@ var rpg = {
 
         if (rpg.toon.currentSpecialAvailable == false) {
             rpg.toon.currentSpecialCoolDown++;
+            if (rpg.toon.currentSpecialCoolDown == 0) {
+                $("#tooltip").text("(Ready) " + rpg.toon.specialTT[heroPos]);
+
+            } else {
+                $("#tooltip").text("(Ready in " + (rpg.toon.currentSpecialCoolDownRates[heroPos] - rpg.toon.currentSpecialCoolDown + 1) + " turns) " + rpg.toon.specialTT[heroPos]);
+            }
         }
 
         // See if defender died
