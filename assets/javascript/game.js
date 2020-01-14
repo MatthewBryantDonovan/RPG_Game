@@ -29,13 +29,11 @@ var rpg = {
         enemyExists: false,
         drac: document.createElement("audio"),
         what: document.createElement("audio"),
-        hasPlayed: false,
+        hasPlayed: false
     },
 
 
     // Start the game by population all the characters dynamically
-    //TODO: Make the players and info look better
-    //TODO: figure out how to make every character have a more interesting win path
     gameStart: function () {
         for (let i = 0; i < rpg.toon.name.length; i++) {
             var toonDiv = $("<div>");
@@ -44,7 +42,7 @@ var rpg = {
                 "onclick": "rpg.toonSelect()",
                 "id": rpg.toon.name[i]
             });
-            toonDiv.css("background", "url(./assets/images/" + rpg.toon.toonPic[i] + ")")
+            toonDiv.css("background", "url(./assets/images/" + rpg.toon.toonPic[i] + ")");
             toonDiv.css({
                 "background": "url(./assets/images/" + rpg.toon.toonPic[i] + ")",
                 /*                 "width": "200px",
@@ -57,7 +55,6 @@ var rpg = {
             rpg.toon.atkDefault.push(rpg.toon.atk[i]);
             rpg.toon.hpDefault.push(rpg.toon.hp[i]);
         }
-
         /*         var audioElement = document.createElement("audio");
                 var audioElement = document.createElement("audio"); */
         rpg.toon.drac.setAttribute("src", "./assets/audio/drac.mp3");
@@ -82,6 +79,7 @@ var rpg = {
         rpg.toon.selectedToons.push(rpg.toon.name.indexOf(event.target.id));
         heroOriginalPos = rpg.toon.name.indexOf(event.target.id);
         heroPos = rpg.toon.selectedToons[0];
+
         for (var i = 0; i < rpg.toon.name.length; i++) {
             if (i != heroPos) {
                 $("#" + rpg.toon.name[i]).attr("onclick", "rpg.enemySelect()");
@@ -91,8 +89,6 @@ var rpg = {
                 $("#" + rpg.toon.name[i]).attr("onclick", null);
             }
         }
-
-
     },
 
     // Removes selected enemy and throws it in the battle arena! dun-DUHN-DUHNN!
@@ -105,9 +101,10 @@ var rpg = {
             $("#" + rpg.toon.name[i]).attr("onclick", null);
         }
 
-        $("button").css("visibility", "visible")
+        $("button").css("visibility", "visible");
         $("#special").text(rpg.toon.special[heroPos]);
         $("#special").attr("data-special", rpg.toon.special[heroPos]);
+
         if (rpg.toon.currentSpecialCoolDown == 0) {
             $("#tooltip").text("(Ready) " + rpg.toon.specialTT[heroPos]);
 
@@ -128,12 +125,14 @@ var rpg = {
             rpg.toon.currentSpecialAvailable = true;
             $("#special").removeClass("disabled"); // make disabled $("#special").removeAttr("disabled") to enable
             $("#special").removeAttr("disabled", ""); // make disabled $("#special").removeAttr("disabled") to enable
+
             if (rpg.toon.currentSpecialCoolDown == 0) {
                 $("#tooltip").text("(Ready) " + rpg.toon.specialTT[heroPos]);
 
             } else {
                 $("#tooltip").text("(Ready in " + (rpg.toon.currentSpecialCoolDownRates[heroPos] - rpg.toon.currentSpecialCoolDown + 1) + " turns) " + rpg.toon.specialTT[heroPos]);
-            }        }
+            }        
+        }
 
 
         // Attacker does damage
@@ -162,8 +161,8 @@ var rpg = {
                     rpg.toon.hp[enemyPos] -= 50;
                     $("#" + rpg.toon.name[enemyPos]).text(rpg.toon.name[enemyPos] + "  HP: " + rpg.toon.hp[enemyPos]);
                     $(".enemy-log").text(rpg.toon.name[enemyPos] + " took 100 damage and now has " + rpg.toon.hp[enemyPos] + "HP!");
-
                     rpg.toon.hp[heroPos] += 25;
+
                     if (rpg.toon.hp[heroPos] > 270) {
                         rpg.toon.hp[heroPos] = 270;
                     }
@@ -173,7 +172,6 @@ var rpg = {
                 case "Stonewall":
                     rpg.toon.currentSpecialActive = true;
                     break;
-
 
                 default:
                     break;
@@ -204,16 +202,15 @@ var rpg = {
                 $(".enemy-log").text("You Win! Click the title to play again! ");
                 rpg.gameEnd();
             }
-
             rpg.toon.placeHolder.push($("#" + rpg.toon.name[enemyPos]).remove());
+
             /// / Name can tell me their original position
             rpg.toon.placeHolderPos.push(enemyPos);
             this.onDeath();
             rpg.toon.atk[heroPos] += 6;
-
         } else {
-            // Defender deals parry damage to the hero
 
+            // Defender deals parry damage to the hero
             if (rpg.toon.currentSpecialAvailable == false && heroPos == 3 && rpg.toon.currentSpecialCoolDown < 4) {
                 rpg.toon.hp[heroPos] -= (rpg.toon.parry[enemyPos] / 5);
                 $(".hero-log").text(rpg.toon.name[heroPos] + " took " + (rpg.toon.parry[enemyPos] / 5) + " damage and now has " + rpg.toon.hp[heroPos] + "HP!");
@@ -222,7 +219,7 @@ var rpg = {
                 $(".hero-log").text(rpg.toon.name[heroPos] + " took " + rpg.toon.parry[enemyPos] + " damage and now has " + rpg.toon.hp[heroPos] + "HP!");
             }
             $("#" + rpg.toon.name[heroPos]).text(rpg.toon.name[heroPos] + "  HP: " + rpg.toon.hp[heroPos]);
-
+            
             if (rpg.toon.currentSpecialAvailable == false && heroPos == 1 && rpg.toon.currentSpecialCoolDown < 4) {
                 rpg.toon.atk[heroPos] += 12;
                 if (attackHappened == true) {
@@ -232,8 +229,6 @@ var rpg = {
                 rpg.toon.atk[heroPos] += 6;
             }
             attackHappened = false;
-
-
 
             // See if hero died
             if (rpg.toon.hp[heroPos] <= 0) {
@@ -245,15 +240,8 @@ var rpg = {
                 $(".enemy-log").text("You Lose! Click the title to play again!");
                 rpg.gameEnd();
                 rpg.toon.enemyExists = true;
-
                 // Display damage dealt / taken and make atk go up
-            } else {
-
-                /*                 $(".hero-log").text(rpg.toon.name[heroPos] + " took " + rpg.toon.parry[enemyPos] + " damage and now has " + rpg.toon.hp[heroPos] + "HP!");
-                 */
-                /*                 $(".enemy-log").text(rpg.toon.name[enemyPos] + " took " + rpg.toon.atk[heroPos] + " damage and now has " + rpg.toon.hp[enemyPos] + "HP!");
-                 */
-            }
+            } 
         }
     },
 
@@ -263,9 +251,7 @@ var rpg = {
             if (!rpg.toon.selectedToons.includes(i)) {
                 $("#" + rpg.toon.name[i]).attr("onclick", "rpg.enemySelect()");
             }
-
         }
-
     },
 
     // See if user wants to play again
@@ -280,6 +266,8 @@ var rpg = {
         /* $("#" + rpg.toon.name[heroPos]).remove(); */
         rpg.toon.placeHolder.push($("#" + rpg.toon.name[heroPos]).remove());
         rpg.toon.placeHolderPos.push(heroOriginalPos);
+        console.log(rpg.toon.placeHolder);
+        
 
         if (rpg.toon.enemyExists == true) {
             // If enemy exists remove them too (the one from the battle arena if user lost)
@@ -296,16 +284,11 @@ var rpg = {
                 rpg.toon.placeHolder.push($("#" + rpg.toon.name[i]).remove());
                 rpg.toon.placeHolderPos.push(i);
             }
-
-
-
         }
         $("#special").removeClass("disabled"); // make disabled $("#special").removeAttr("disabled") to enable
         $("#special").removeAttr("disabled", ""); // make disabled $("#special").removeAttr("disabled") to enable
-
         rpg.toon.atk = [];
         rpg.toon.hp = [];
-
 
         // Re-attach the toons so it looks like gamestart positions
         var postPlace = 0;
@@ -321,8 +304,6 @@ var rpg = {
             rpg.toon.hp.push(rpg.toon.hpDefault[i]);
             $("#" + rpg.toon.name[i]).text(rpg.toon.name[i] + "  HP: " + rpg.toon.hp[i]);
         }
-
-
         rpg.toon.selectedToons = [];
         rpg.toon.heroPos = 0;
         heroOriginalPos = 0;
@@ -334,22 +315,16 @@ var rpg = {
         rpg.toon.currentSpecial = 0;
         rpg.toon.currentSpecialAvailable = true;
         rpg.toon.currentSpecialActive = false;
-
         $(".hero-log").empty();
         $(".enemy-log").empty();
-
-
         $("#game-restart").attr("onclick", null);
     }
 };
 
 //gameflow start
-
 rpg.gameStart();
 
-
-
-
+/////////////////////////////////////////////
 // Initial pseudocode
 // gameflow
 // select char
